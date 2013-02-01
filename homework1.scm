@@ -19,3 +19,10 @@
       ((null? l) '())
       ((null? (cdr l)) l)
       (else (cons (car l) (cons (nestlist (cdr l)) '()))))))
+
+(define deepcons
+  (lambda (n l)
+    (cond
+      ((null? l) (cons n '()))
+      ((list? (car l)) (cons (deepcons n (car l)) (cdr l)))
+      (else (cons n l)))))
