@@ -27,31 +27,6 @@
       ((list? (car l)) (cons (deepcons n (car l)) (cdr l)))
       (else (cons n l)))))
 
-(define rac
- (lambda (l)
-   (cond
-     ((null? (cdr l)) (car l))
-     (else (rac (cdr l))))))
-
-(define rdc
-  (lambda (l)
-    (cond
-      ((null? (cdr l)) null)
-      (else (cons (car l) (rdc (cdr l)))))))
-
-(define snoc
-  (lambda (l n)
-    (cond
-      ((null? l) (cons n '()))
-      (else (cons (car l) (snoc (cdr l) n))))))
-
-;(define nestlistfront
-;  (lambda (l)
-;    (cond
-;      ((null? l) '())
-;      ((null? (cdr l)) l)
-;      (else (snoc (cons (nestlistfront (rdc l)) '()) (rac l))))))
-
 (define nestlistfront
   (lambda (l)
     (cond
