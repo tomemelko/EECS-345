@@ -12,3 +12,10 @@
       ((null? (cdr l)) l)
       ((eq? (car l) (car (cdr l))) (removedups (cdr l)))
       (else (cons (car l) (removedups (cdr l)))))))
+
+(define nestlist
+  (lambda (l)
+    (cond
+      ((null? l) '())
+      ((null? (cdr l)) l)
+      (else (cons (car l) (cons (nestlist (cdr l)) '()))))))
