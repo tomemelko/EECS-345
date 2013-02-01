@@ -45,9 +45,16 @@
       ((null? l) (cons n '()))
       (else (cons (car l) (snoc (cdr l) n))))))
 
+;(define nestlistfront
+;  (lambda (l)
+;    (cond
+;      ((null? l) '())
+;      ((null? (cdr l)) l)
+;      (else (snoc (cons (nestlistfront (rdc l)) '()) (rac l))))))
+
 (define nestlistfront
   (lambda (l)
     (cond
       ((null? l) '())
       ((null? (cdr l)) l)
-      (else (snoc (cons (nestlistfront (rdc l)) '()) (rac l))))))
+      (else (deepcons (cons (car l) '()) (nestlistfront(cdr l)))))))
