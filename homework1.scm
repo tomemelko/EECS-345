@@ -33,3 +33,10 @@
       ((null? l) '())
       ((null? (cdr l)) l)
       (else (deepcons (cons (car l) '()) (nestlistfront(cdr l)))))))
+
+(define numparens*
+  (lambda (l)
+    (cond
+      ((null? l) 1)
+      ((list? (car l)) (+ (numparens* (car l)) (numparens* (cdr l))))
+      (else (numparens* (cdr l))))))
