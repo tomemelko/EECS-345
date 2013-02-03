@@ -40,3 +40,10 @@
       ((null? l) 1)
       ((list? (car l)) (+ (numparens* (car l)) (numparens* (cdr l))))
       (else (numparens* (cdr l))))))
+
+(define dup*
+  (lambda (l)
+    (cond
+      ((null? l) '())
+      ((list? (car l)) (cons (dup* (car l)) (cons (dup* (car l)) (dup* (cdr l)))))
+      (else (cons (car l) (cons (car l) (dup* (cdr l))))))))
