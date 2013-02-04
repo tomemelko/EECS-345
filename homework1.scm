@@ -71,3 +71,11 @@
       ((list? (car l)) (cons (removedups** (car l)) (removedups** (cdr l))))
       ((eq? (car l) (car (cdr l))) (removedups** (cdr l)))
       (else (cons (car l) (removedups** (cdr l)))))))
+
+(define transpose
+  (lambda (m)
+    (cond
+      ((null? m) '())
+      ((null? (car m)) '())
+      (else (cons (map car m) (transpose (map cdr m)))))))
+      
