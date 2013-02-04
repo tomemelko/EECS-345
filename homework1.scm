@@ -56,3 +56,18 @@
       ((null? (cdr l)) l)
       ((eq? (car l) (car (cdr l))) (removedups* (cdr l)))
       (else (cons (car l) (removedups* (cdr l)))))))
+
+(define removedups**
+  (lambda (l)
+    (cond
+      ((null? l) '())
+      ((and (list? (car l)) (null? (cdr l))) (cons (removedups** (car l)) '()))
+      ((null? (cdr l)) l)
+      ((and 
+        (list? (car l)) 
+        (list? (car (cdr l)))
+        (equal? (removedups** (car l)) (removedups** (car (cdr l)))))
+       (removedups** (cdr l)))
+      ((list? (car l)) (cons (removedups** (car l)) (removedups** (cdr l))))
+      ((eq? (car l) (car (cdr l))) (removedups** (cdr l)))
+      (else (cons (car l) (removedups** (cdr l)))))))
