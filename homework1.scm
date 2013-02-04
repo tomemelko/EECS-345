@@ -1,3 +1,7 @@
+;Tom Emelko (tje22)
+;All funtions have null checking, for good practice
+
+;Inserts the argument n into ordered list l in the correct spot
 (define insert
   (lambda (n l)
     (cond
@@ -5,6 +9,7 @@
       ((and (> n (car l)) (<= n (car (cdr l))) (cons (car l) (cons n (cdr l)))))
       (else (cons (car l) (insert n (cdr l)))))))
 
+;Removes duplicates in the base "layer" of the list
 (define removedups
   (lambda (l)
     (cond
@@ -13,6 +18,7 @@
       ((eq? (car l) (car (cdr l))) (removedups (cdr l)))
       (else (cons (car l) (removedups (cdr l)))))))
 
+;Takes each atom and nests it into a right aligned nest
 (define nestlist
   (lambda (l)
     (cond
@@ -20,6 +26,7 @@
       ((null? (cdr l)) l)
       (else (cons (car l) (cons (nestlist (cdr l)) '()))))))
 
+;Adds the given atom n as the first atom in the list, no matter how "deep"
 (define deepcons
   (lambda (n l)
     (cond
@@ -27,6 +34,7 @@
       ((list? (car l)) (cons (deepcons n (car l)) (cdr l)))
       (else (cons n l)))))
 
+;Similar to nestlist, but instead is left-aligned, so the first element is the "deepest"
 (define nestlistfront
   (lambda (l)
     (cond
@@ -34,6 +42,7 @@
       ((null? (cdr l)) l)
       (else (deepcons (cons (car l) '()) (nestlistfront(cdr l)))))))
 
+;Reports the number of parentheses pairs
 (define numparens*
   (lambda (l)
     (cond
@@ -41,6 +50,7 @@
       ((list? (car l)) (+ (numparens* (car l)) (numparens* (cdr l))))
       (else (numparens* (cdr l))))))
 
+;Duplicates each atom and each sublist recursively
 (define dup*
   (lambda (l)
     (cond
@@ -48,6 +58,7 @@
       ((list? (car l)) (cons (dup* (car l)) (cons (dup* (car l)) (dup* (cdr l)))))
       (else (cons (car l) (cons (car l) (dup* (cdr l))))))))
 
+;Removes duplicate atoms in each sublist
 (define removedups*
   (lambda (l)
     (cond
@@ -57,6 +68,7 @@
       ((eq? (car l) (car (cdr l))) (removedups* (cdr l)))
       (else (cons (car l) (removedups* (cdr l)))))))
 
+;Removes duplicates in each sublist, and duplicate sublists
 (define removedups**
   (lambda (l)
     (cond
@@ -72,6 +84,7 @@
       ((eq? (car l) (car (cdr l))) (removedups** (cdr l)))
       (else (cons (car l) (removedups** (cdr l)))))))
 
+;Transposes the rows and columns of the given matrix
 (define transpose
   (lambda (m)
     (cond
