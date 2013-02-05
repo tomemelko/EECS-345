@@ -78,7 +78,7 @@
       ((and 
         (list? (car l)) 
         (list? (car (cdr l)))
-        (equal? (removedups** (car l)) (removedups** (car (cdr l)))))
+        (listeq? (removedups** (car l)) (removedups** (car (cdr l)))))
        (removedups** (cdr l)))
       ((list? (car l)) (cons (removedups** (car l)) (removedups** (cdr l))))
       ((eq? (car l) (car (cdr l))) (removedups** (cdr l)))
@@ -90,5 +90,22 @@
     (cond
       ((null? m) '())
       ((null? (car m)) '())
-      (else (cons (map car m) (transpose (map cdr m)))))))
-      
+      (else (cons (map* car m) (transpose (map* cdr m)))))))
+
+;;;;Helper functions;;;;
+;My version of the map function, which runs given function f on each element of l
+(define map*
+  (lambda (f l)
+    (cond
+      ((null? l) '())
+      (else (cons (f (car l)) (map* f (cdr l)))))))
+
+;From Lecture: Return #t if two lists have identical structure and contents
+(define listeq?
+  (lambda (l1 l2)
+    (cond
+      ((and (null? l1) (null? l2)) #t)
+      ((or (null? l1) (null? l2)) #f)
+      ((eq? (car l1) (car l2)) (listeq? (cdr l1) (cdr l2)))
+      ((and (pair? (car l1)) (pair? (car l2))) (and (listeq? (car l1) (car l2)) (listeq? (cdr l1) (cdr l2))))
+      (else #f))))
